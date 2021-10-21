@@ -47,6 +47,18 @@ const Piano: React.FC = () => {
           ))
         }
       </div>
+      {
+        activeKeys.map(key => {
+          const fileName = Constants.PIANO_BUTTONS.indexOf(key) + 1
+          return fileName > 0 && fileName <= 21 && (
+            <audio
+              key={ key }
+              src={ `mp3/${fileName}.mp3` }
+              autoPlay
+            />
+          )
+        })
+      }
     </div>
   )
 
