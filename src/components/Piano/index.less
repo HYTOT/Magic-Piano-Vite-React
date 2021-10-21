@@ -15,10 +15,10 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
+      position: relative;
       max-width: calc(90vw / 21);
       height: inherit;
       margin: 0 .1vw;
-      padding: 1vw 0;
       font-size: 2vw;
       text-transform: uppercase;
       border: .1vw solid rgba(white, .5);
@@ -28,6 +28,7 @@
       overflow: hidden;
       
       span {
+        padding: 1vw 0;
         color: white;
         opacity: .3;
         transition: all .3s;
@@ -36,29 +37,44 @@
       &::after {
         content: '';
         position: absolute;
-        top: -10%;
         left: 0;
         width: 100%;
         height: 10%;
-        background: pink;
-        opacity: 0;
       }
 
       &.active {
         border: .1vw solid white;
-        box-shadow: 0 1vw 2vw pink, 0 -.25vw 1vw white inset;
         transform: translateY(-.2vw) rotateX(20deg);
 
         span {
           opacity: 1;
         }
-
-        &::after {
-          top: 100%;
-          opacity: .3;
-          transition: all .3s;
-        }
       }
+
+      each(range(21), {
+        &:nth-child(@{value}) {
+          @hsl-deg: (360 / 21 * (@value - 1));
+          @animation-delay: (@value / 7);
+          &.active {
+            box-shadow: 0 1vw 2vw hsl(~'@{hsl-deg}deg', 50%, 50%), 0 -.25vw 1vw white inset;
+          }
+          &::after {
+            background: hsl(~'@{hsl-deg}deg', 50%, 50%);
+            animation: shiny-button .6s ~'@{animation-delay}s' forwards infinite;
+          }
+        }
+      })
     }
+  }
+}
+
+@keyframes shiny-button {
+  from {
+    top: -20%;
+    opacity: 0;
+  }
+  to {
+    top: 100%;
+    opacity: .5;
   }
 }
