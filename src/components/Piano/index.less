@@ -1,14 +1,30 @@
+@piano-width: 80vw;
+
 .piano {
+  position: absolute;
   width: 100vw;
   height: 100vh;
+  background-image: url('images/bg.jpg');
+  background-position: left;
+  background-size: cover;
   user-select: none;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  perspective: 900;
+  -webkit-perspective: 900;
 
   .buttons {
     display: flex;
     align-items: center;
-    width: 90vw;
-    height: 14vw;
+    width: @piano-width;
+    height: 15vw;
     margin: 0 auto;
+    transform: rotateX(30deg);
+    transform-origin: top;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    perspective: 1500;
+    -webkit-perspective: 1500;
     
     .button {
       flex: 1;
@@ -16,14 +32,14 @@
       justify-content: center;
       align-items: flex-end;
       position: relative;
-      max-width: calc(90vw / 21);
+      max-width: calc(@piano-width / 21);
       height: inherit;
       margin: 0 .1vw;
       font-size: 2vw;
       text-transform: uppercase;
-      border: .1vw solid rgba(white, .5);
       border-radius: 0 0 .3vw .3vw;
-      box-shadow: 0 5vw 10vw white;
+      box-shadow: 0 5vw 10vw white, 0 0 0 white inset;
+      transform-origin: top;
       transition: all .3s;
       overflow: hidden;
       
@@ -34,7 +50,7 @@
         transition: all .3s;
       }
 
-      &::after {
+      &::before {
         content: '';
         position: absolute;
         top: -20%;
@@ -45,8 +61,7 @@
       }
 
       &.active {
-        border: .1vw solid white;
-        transform: translateY(-.2vw) rotateX(20deg);
+        transform: rotateX(-2deg);
 
         span {
           opacity: 1;
@@ -60,7 +75,7 @@
           &.active {
             box-shadow: 0 1vw 2vw hsl(~'@{hsl-deg}deg', 50%, 50%), 0 -.25vw 1vw white inset;
           }
-          &::after {
+          &::before {
             background: hsl(~'@{hsl-deg}deg', 50%, 50%);
             animation: shiny-button .6s ~'@{animation-delay}s' forwards infinite;
           }
