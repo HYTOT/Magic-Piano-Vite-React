@@ -79,14 +79,16 @@
         }
 
         &:nth-child(1) {
+
           &.hide {
-            transform: translateY(-1vw);
+            transform: translateY(-8vw);
           }
         }
 
         &:nth-child(2) {
+
           &.hide {
-            transform: translateY(1vw);
+            transform: translateY(8vw);
           }
         }
       }
@@ -117,14 +119,22 @@
       each(range(21), {
         &:nth-child(@{value}) {
           @span-transition-delay: (@value / 21);
+          @span-hide-transition-delay: @span-transition-delay + .3;
           @hsl-deg: (360 / 21 * (@value - 1));
           @animation-delay: (@value / 7);
+
           span {
-            transition: color .3s, opacity 1s ~'@{span-transition-delay}s', transform 1s ~'@{span-transition-delay}s';
+            transition: color .3s, opacity .6s ~'@{span-transition-delay}s', transform .9s ~'@{span-transition-delay}s';
+          
+            &.hide {
+              transition: color .3s, opacity .6s ~'@{span-hide-transition-delay}s', transform .9s ~'@{span-hide-transition-delay}s';
+            }
           }
+
           &.active {
             box-shadow: 0 1vw 2vw hsl(~'@{hsl-deg}deg', 50%, 50%), 0 -.25vw 1vw white inset;
           }
+
           &::before {
             background: hsl(~'@{hsl-deg}deg', 50%, 50%);
             animation: shiny-button .6s ~'@{animation-delay}s' forwards infinite;
