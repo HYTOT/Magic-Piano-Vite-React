@@ -90,7 +90,7 @@ const Piano: React.FC = () => {
           return fileName > 0 && fileName <= 21 && (
             <audio
               key={ key }
-              src={ `mp3/${fileName}.mp3` }
+              src={ `/mp3/${fileName}.mp3` }
               autoPlay
             />
           )
