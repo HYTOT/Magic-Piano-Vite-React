@@ -29,12 +29,14 @@
     .button {
       flex: 1;
       display: flex;
-      justify-content: center;
-      align-items: flex-end;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
       position: relative;
       max-width: calc(@piano-width / 21);
       height: inherit;
       margin: 0 .1vw;
+      padding: 1vw 0;
       font-size: 2vw;
       text-transform: uppercase;
       border-radius: 0 0 .3vw .3vw;
@@ -42,12 +44,51 @@
       transform-origin: top;
       transition: all .3s;
       overflow: hidden;
-      
+
       span {
-        padding: 1vw 0;
-        color: white;
-        opacity: .3;
-        transition: all .3s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 3vw;
+        height: 3vw;
+        color: rgba(white, .3);
+        border-radius: 50%;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: .3vw;
+          height: .3vw;
+          border-radius: 50%;
+          transition: all .3s;
+        }
+
+        &.top-point::after {
+          background: rgba(white, .3);
+          top: -.2vw;
+        }
+
+        &.bottom-point::after {
+          background: rgba(white, .3);
+          bottom: -.2vw;
+        }
+
+        &.hide {
+          opacity: 0;
+        }
+
+        &:nth-child(1) {
+          &.hide {
+            transform: translateY(-1vw);
+          }
+        }
+
+        &:nth-child(2) {
+          &.hide {
+            transform: translateY(1vw);
+          }
+        }
       }
 
       &::before {
@@ -64,14 +105,23 @@
         transform: rotateX(-2deg);
 
         span {
-          opacity: 1;
+          color: rgb(white, 1);
+
+          &.top-point::after,
+          &.bottom-point::after {
+            background: rgba(white, 1);
+          }
         }
       }
 
       each(range(21), {
         &:nth-child(@{value}) {
+          @span-transition-delay: (@value / 21);
           @hsl-deg: (360 / 21 * (@value - 1));
           @animation-delay: (@value / 7);
+          span {
+            transition: color .3s, opacity 1s ~'@{span-transition-delay}s', transform 1s ~'@{span-transition-delay}s';
+          }
           &.active {
             box-shadow: 0 1vw 2vw hsl(~'@{hsl-deg}deg', 50%, 50%), 0 -.25vw 1vw white inset;
           }

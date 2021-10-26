@@ -4,6 +4,8 @@ import './index.less'
 
 const Piano: React.FC = () => {
 
+  const [timer, setTimer] = useState(0)
+  const [keyboardMode, setKeyboardMode] = useState(false)
   const [activeKeys, setActiveKeys] = useState<Array<string>>([])
   // const [playingAudios, setPlayingAudios] = useState<Array<string>>([])
 
@@ -38,10 +40,19 @@ const Piano: React.FC = () => {
       removeActiveKey(key)
     }
   }
+  /** 注册按键文案模式定时器 */
+  const registerKeyboardModeSwitcher = () => {
+    setKeyboardMode(flag => !flag)
+    timer || setTimer(setTimeout(registerKeyboardModeSwitcher, 5000))
+  }
 
   useEffect(() => {
     registerKeyDownHandler()
     registerKeyUpHandler()
+    registerKeyboardModeSwitcher()
+    return () => {
+      timer && clearTimeout(timer)
+    }
   }, [])
 
   return (
@@ -49,12 +60,25 @@ const Piano: React.FC = () => {
       <div className="buttons">
         {
           // 钢琴键按钮
-          Constants.PIANO_BUTTONS.map((key) => (
+          Constants.PIANO_BUTTONS.map((key, index) => (
             <div
               key={ key }
               className={ `button ${activeKeys.includes(key) ? 'active' : ''}` }
             >
-              <span>{ key }</span>
+              {/* 简谱字符 */}
+              <span
+                className={ `
+                  ${keyboardMode ? 'hide' : ''}
+                  ${index < 7 ? 'bottom-point' : ''}
+                  ${index >= 14 ? 'top-point' : ''}
+                ` }
+              >
+                { index % 7 + 1 }
+              </span>
+              {/* 键盘按键 */}
+              <span className={ `${keyboardMode ? '' : 'hide'}` }>
+                { key }
+              </span>
             </div>
           ))
         }
