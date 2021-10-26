@@ -13,6 +13,39 @@
   perspective: 900;
   -webkit-perspective: 900;
 
+  .navigation {
+    display: flex;
+    align-items: center;
+    height: 5vw;
+    margin-bottom: -1.5vw;
+    padding: 0 5.5vw;
+    color: rgba(white, .8);
+    font-style: italic;
+    background: rgba(white, .1);
+    text-shadow: 0 0 1vw pink;
+    transition: color .6s;
+
+    &.active {
+      color: rgba(white, .2);
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 100%;
+
+      .title {
+        font-size: 2.5vw;
+      }
+  
+      .info {
+        padding-bottom: .2vw;
+        font-size: 1.5vw;
+      }
+    }
+  }
+
   .buttons {
     display: flex;
     align-items: center;
@@ -40,7 +73,7 @@
       font-size: 2vw;
       text-transform: uppercase;
       border-radius: 0 0 .3vw .3vw;
-      box-shadow: 0 5vw 10vw white, 0 0 0 white inset;
+      box-shadow: 0 0 10vw white, 0 0 0 white inset;
       transform-origin: top;
       transition: all .3s;
       overflow: hidden;

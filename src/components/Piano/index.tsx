@@ -5,7 +5,7 @@ import './index.less'
 const Piano: React.FC = () => {
 
   const [timer, setTimer] = useState(0)
-  const [keyboardMode, setKeyboardMode] = useState(false)
+  const [keyboardMode, setKeyboardMode] = useState(true)
   const [activeKeys, setActiveKeys] = useState<Array<string>>([])
   // const [playingAudios, setPlayingAudios] = useState<Array<string>>([])
 
@@ -49,7 +49,7 @@ const Piano: React.FC = () => {
   useEffect(() => {
     registerKeyDownHandler()
     registerKeyUpHandler()
-    registerKeyboardModeSwitcher()
+    setTimeout(registerKeyboardModeSwitcher, 5000)
     return () => {
       timer && clearTimeout(timer)
     }
@@ -57,6 +57,12 @@ const Piano: React.FC = () => {
 
   return (
     <div className="piano">
+      <div className={ `navigation ${activeKeys.length ? 'active' : ''}` }>
+        <div className="container">
+          <div className="title">Magic Piano</div>
+          <div className="info">developed by Ajax</div>
+        </div>
+      </div>
       <div className="buttons">
         {
           // 钢琴键按钮
