@@ -103,7 +103,7 @@ const Piano: React.FC = () => {
         })
       }
       <div className="footer">
-        <div className="info">v2.2.2</div>
+        <div className="info">v2.2.3</div>
       </div>
     </div>
   )
