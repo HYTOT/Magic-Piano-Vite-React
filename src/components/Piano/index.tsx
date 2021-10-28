@@ -56,8 +56,8 @@ const Piano: React.FC = () => {
   }, [])
 
   return (
-    <div className="piano">
-      <div className={ `navigation ${activeKeys.length ? 'active' : ''}` }>
+    <div className={ `piano ${activeKeys.length ? 'active' : ''}` }>
+      <div className="navigation">
         <div className="container">
           <div className="title">Magic Piano</div>
           <div className="info">developed by Ajax</div>
@@ -103,7 +103,7 @@ const Piano: React.FC = () => {
         })
       }
       <div className="footer">
-        <div className="info">v2.2.1</div>
+        <div className="info">v2.2.2</div>
       </div>
     </div>
   )
